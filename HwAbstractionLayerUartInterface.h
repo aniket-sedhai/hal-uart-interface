@@ -98,6 +98,95 @@ class HwAbstractionLayerUartInterface
      */
     virtual bool hal_uart_is_rx_enabled(void) = 0;
 
+        virtual HwAbstractionLayerUartInterfaceNamespace::hal_uart_status_e hal_uart_enable_rx(
+            int32_t* ret_platform_specific_status_p) = 0;
+
+        /**
+         * @brief Function is for enabling the Tx UART interface.
+         * 
+         * @param[out] ret_platform_specific_status_p - pointer to set the platform specific status, can be NULL
+         * @return hal_uart_status_e                  - returns zero upon success, non-zero upon failure
+         */
+        virtual HwAbstractionLayerUartInterfaceNamespace::hal_uart_status_e hal_uart_enable_tx(
+            int32_t* ret_platform_specific_status_p) = 0;
+
+        /**
+         * @brief Function is for disabling both Rx and Tx UART interface.
+         * 
+         * @param[out] ret_platform_specific_status_p - pointer to set the platform specific status, can be NULL
+         * @return hal_uart_status_e                  - returns zero upon success, non-zero upon failure
+         */
+        virtual HwAbstractionLayerUartInterfaceNamespace::hal_uart_status_e hal_uart_disable_both_rx_tx(
+            int32_t* ret_platform_specific_status_p) = 0;
+
+        /**
+         * @brief Function is for disabling the Rx UART interface.
+         * 
+         * @param[out] ret_platform_specific_status_p - pointer to set the platform specific status, can be NULL
+         * @return hal_uart_status_e                  - returns zero upon success, non-zero upon failure
+         */
+        virtual HwAbstractionLayerUartInterfaceNamespace::hal_uart_status_e hal_uart_disable_rx(
+            int32_t* ret_platform_specific_status_p) = 0;
+
+        /**
+         * @brief Function is for disabling the Tx UART interface.
+         * 
+         * @param[out] ret_platform_specific_status_p - pointer to set the platform specific status, can be NULL
+         * @return hal_uart_status_e                  - returns zero upon success, non-zero upon failure
+         */
+        virtual HwAbstractionLayerUartInterfaceNamespace::hal_uart_status_e hal_uart_disable_tx(
+            int32_t* ret_platform_specific_status_p) = 0;
+
+        /**
+         * @brief Function for a blocking write to an UART interface.
+         * 
+         * @param[in] wrt_bytes_p                     - pointer in data to write
+         * @param[in] num_of_bytes                    - number of bytes wrt_bytes_p is pointing to
+         * @param[out] ret_platform_specific_status_p - pointer to set the platform specific status, can be NULL
+         * @return hal_uart_status_e                  - returns zero upon success, non-zero upon failure
+         */
+        virtual HwAbstractionLayerUartInterfaceNamespace::hal_uart_status_e hal_uart_write(
+            const uint8_t* wrt_bytes_p,
+            uint32_t       num_of_bytes,
+            int32_t*       ret_platform_specific_status_p) = 0;
+
+        /**
+         * @brief This function presents a byte to the application from the UART interface.
+         * 
+         * @param[in] rd_byte                         - byte received from the serial port
+         * @param[out] ret_platform_specific_status_p - pointer to set the platform specific status, can be NULL
+         * @return hal_uart_status_e                  - returns zero upon success, non-zero upon failure
+         * @note This function is usually call with the context of an ISR.
+         */
+        virtual HwAbstractionLayerUartInterfaceNamespace::hal_uart_status_e hal_uart_present_read_byte_to_applicaition(
+            uint8_t  rd_byte,
+            int32_t* ret_platform_specific_status_p) = 0;
+
+        // /**
+        //  * @brief This function sets the callback that is used to send the application the received uart byte.
+        //  * 
+        //  * @param[in] callback_fp      - pointer the callback function.
+        //  * @param[in] arg_p            - pointer the argument passed back.
+        //  * @return hal_uart_status_e   - returns zero upon success, non-zero upon failure.
+        //  */
+        // virtual HwAbstractionLayerUartInterfaceNamespace::hal_uart_status_e hal_uart_set_application_rx_callback(
+        //     HwAbstractionLayerUartInterfaceNamespace::application_rx_byte_callback_func_t callback_fp,
+        //     void* arg_p) = 0;
+
+        /**
+         * @brief Destructor. 
+         */
+        virtual ~HwAbstractionLayerUartInterface(){}
+        
+    protected:
+        
+        /**
+         * @brief Default constructor made protected since this is an abstract class. 
+         */
+        HwAbstractionLayerUartInterface(){}
+        
+    private:
+
 };
 
 #endif /*HARDWARE_ABSTRACTION_LAYER_UART_INTERFACE_H*/
