@@ -96,6 +96,21 @@ public:
      */
     virtual bool hal_uart_is_rx_enabled(void) = 0;
 
+    /**
+     * @brief 
+     * 
+     * @param ret_platform_specific_status_p 
+     * @return HwAbstractionLayerUartInterfaceNamespace::hal_uart_status_e 
+     */
+    virtual HwAbstractionLayerUartInterfaceNamespace::hal_uart_status_e hal_uart_enable_both_rx_tx(
+            int32_t* ret_platform_specific_status_p) = 0;
+
+    /**
+     * @brief 
+     * 
+     * @param ret_platform_specific_status_p 
+     * @return HwAbstractionLayerUartInterfaceNamespace::hal_uart_status_e 
+     */
     virtual HwAbstractionLayerUartInterfaceNamespace::hal_uart_status_e hal_uart_enable_rx(
         int32_t *ret_platform_specific_status_p) = 0;
 
